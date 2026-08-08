@@ -1,0 +1,8 @@
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /wagger-ui.html
+    operations-sorter: method
+  packages-to-scan: com.lecture.bank.api
+  paths-to-match: /api/**
