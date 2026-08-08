@@ -27,6 +27,15 @@ data class ApiResponse<T>(
                 )
             )
         }
+
+        fun <T> exceptionError(
+            msg : String,
+            errCode : String? = null,
+            details : Any? = null,
+            path : String? = null
+        ) : ApiResponse<T> {
+            return ApiResponse(false, msg, null, Error(errCode, details, path))
+        }
     }
 }
 
