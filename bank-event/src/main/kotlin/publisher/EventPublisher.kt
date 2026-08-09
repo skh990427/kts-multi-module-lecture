@@ -1,7 +1,7 @@
 package com.lecture.bank.event.publisher
 
 import com.lecture.bank.domain.event.DomainEvent
-import com.sun.org.slf4j.internal.LoggerFactory
+import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
@@ -22,12 +22,24 @@ class EventPublisherImpl(
     private val logger = LoggerFactory.getLogger(EventPublisherImpl::class.java)
 
     override fun publish(event: DomainEvent) {
-        eventPublisher.publishEvent(event)
+        logger.info("Publishing event: $event")
+        try {
+            eventPublisher.publishEvent(event)
+            // TODO metrics
+        } catch (e : Exception) {
+            logger.error("Error publishing event!", e)
+        }
     }
 
     @Async("taskExecutor")
     override fun publishAsync(event: DomainEvent) {
-        eventPublisher.publishEvent(event)
+        logger.info("Publishing event: $event")
+        try {
+            eventPublisher.publishEvent(event)
+            // TODO metrics
+        } catch (e : Exception) {
+            logger.error("Error publishing event!", e)
+        }
     }
 
     override fun publishAll(events : List<DomainEvent>) {
